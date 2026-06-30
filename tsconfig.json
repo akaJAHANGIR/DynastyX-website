@@ -1,0 +1,23 @@
+import Navbar   from './components/Navbar';
+import Hero     from './components/Hero';
+import About    from './components/About';
+import Roster   from './components/Roster';
+import Founders from './components/Founders';
+import JoinUs   from './components/JoinUs';
+import Footer   from './components/Footer';
+
+export default function App() {
+  return (
+    <div className="min-h-screen bg-dark-900 overflow-x-hidden">
+      <Navbar />
+      <main>
+        <Hero />
+        <About />
+        <Roster />
+        <Founders />
+        <JoinUs />
+      </main>
+      <Footer />
+    </div>
+  );
+}

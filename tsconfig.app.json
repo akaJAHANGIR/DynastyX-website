@@ -1,0 +1,119 @@
+import { motion } from 'framer-motion';
+import { Crown, Calendar, Users } from 'lucide-react';
+
+const FOUNDERS = [
+  {
+    name:    'SM Jahangir Alom',
+    title:   'Co-Founder',
+    image:   'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=600',
+    bio:     'The strategic architect of DynastyX. Jahangir co-founded the organisation on 27 June 2026 with a burning vision — to build India\'s most feared BGMI competitive squad. His passion for the game, leadership instinct, and relentless ambition form the backbone of everything DynastyX represents.',
+    motto:   'Strategy is half the battle — we train for the other half.',
+  },
+  {
+    name:    'Harshal',
+    title:   'Co-Founder',
+    image:   'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=600',
+    bio:     'The operational heartbeat behind DynastyX. Harshal, alongside his brother Jahangir, turned a shared dream into a dynasty in 2026. He drives team management, player development, and community growth — ensuring DynastyX operates with the precision and discipline of a championship machine.',
+    motto:   'We didn\'t come this far to only come this far.',
+  },
+];
+
+export default function Founders() {
+  return (
+    <section id="founders" className="relative py-24 md:py-36 bg-dark-900">
+      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-brand-600/40 to-transparent" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        {/* Heading */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-6"
+        >
+          <p className="section-bar font-orbitron text-xs text-brand-400 uppercase tracking-[0.3em] mb-4">
+            The Visionaries
+          </p>
+          <h2 className="font-orbitron font-black text-4xl md:text-5xl lg:text-6xl text-white mb-4">
+            Meet the <span className="neon-text">Founders</span>
+          </h2>
+        </motion.div>
+
+        {/* Brothers badge */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.92 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.15 }}
+          className="flex justify-center mb-14"
+        >
+          <div className="inline-flex items-center gap-3 px-6 py-3 glass rounded-full border border-brand-600/30">
+            <Users className="w-4 h-4 text-brand-400" />
+            <span className="font-rajdhani font-semibold text-brand-200 text-sm uppercase tracking-widest">
+              Two brothers · One dynasty · Founded 27 June 2026
+            </span>
+            <Calendar className="w-4 h-4 text-brand-400" />
+          </div>
+        </motion.div>
+
+        {/* Founder cards */}
+        <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+          {FOUNDERS.map(({ name, title, image, bio, motto }, i) => (
+            <motion.div
+              key={name}
+              initial={{ opacity: 0, x: i === 0 ? -50 : 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0.1 }}
+              className="group gradient-border rounded-2xl overflow-hidden card-hover"
+            >
+              {/* Photo */}
+              <div className="relative aspect-[16/9] overflow-hidden">
+                <img
+                  src={image}
+                  alt={name}
+                  className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-dark-900 via-dark-900/40 to-transparent" />
+                <div className="absolute inset-0 bg-brand-700/10 opacity-0 group-hover:opacity-100 transition-opacity duration-400" />
+
+                {/* Crown badge */}
+                <div className="absolute top-4 right-4">
+                  <div className="p-2.5 rounded-xl bg-brand-700/70 border border-brand-400/40 backdrop-blur-sm">
+                    <Crown className="w-5 h-5 text-brand-200" />
+                  </div>
+                </div>
+              </div>
+
+              {/* Body */}
+              <div className="bg-dark-800 p-7">
+                <div className="flex items-center gap-3 mb-3">
+                  <span className="w-2 h-2 rounded-full bg-brand-400 animate-pulse flex-shrink-0" />
+                  <span className="font-orbitron text-xs text-brand-400 uppercase tracking-widest">
+                    {title} · DynastyX Esports · Est. 2026
+                  </span>
+                </div>
+
+                <h3 className="font-orbitron font-black text-2xl md:text-3xl text-white mb-4">
+                  {name}
+                </h3>
+
+                <p className="font-rajdhani text-gray-400 leading-relaxed mb-6">{bio}</p>
+
+                <div className="pt-4 border-t border-brand-700/25">
+                  <p className="font-rajdhani font-semibold text-brand-400/60 text-sm italic">
+                    "{motto}"
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+
+      <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-brand-600/30 to-transparent" />
+    </section>
+  );
+}

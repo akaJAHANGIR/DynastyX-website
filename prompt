@@ -1,0 +1,79 @@
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+  theme: {
+    extend: {
+      colors: {
+        brand: {
+          50:  '#faf0ff',
+          100: '#f2d9ff',
+          200: '#e4b3ff',
+          300: '#d080ff',
+          400: '#b94dff',
+          500: '#9d1fff',
+          600: '#7c00e0',
+          700: '#6200b3',
+          800: '#4a0086',
+          900: '#2e0052',
+        },
+        neon: '#bf00ff',
+        dark: {
+          950: '#05050a',
+          900: '#0a0a0f',
+          800: '#10101a',
+          700: '#171724',
+          600: '#20202e',
+          500: '#2a2a3c',
+          400: '#36364d',
+        },
+      },
+      fontFamily: {
+        orbitron: ['Orbitron', 'sans-serif'],
+        rajdhani: ['Rajdhani', 'sans-serif'],
+        inter: ['Inter', 'sans-serif'],
+      },
+      backgroundImage: {
+        'grid-pattern': `linear-gradient(rgba(159,0,255,0.07) 1px, transparent 1px),
+                         linear-gradient(90deg, rgba(159,0,255,0.07) 1px, transparent 1px)`,
+      },
+      backgroundSize: {
+        'grid': '48px 48px',
+      },
+      boxShadow: {
+        'neon-sm': '0 0 8px rgba(191,0,255,0.6)',
+        'neon':    '0 0 20px rgba(191,0,255,0.7), 0 0 40px rgba(191,0,255,0.3)',
+        'neon-lg': '0 0 40px rgba(191,0,255,0.8), 0 0 80px rgba(191,0,255,0.4)',
+        'card':    '0 0 0 1px rgba(191,0,255,0.15), 0 8px 32px rgba(0,0,0,0.6)',
+        'card-hover': '0 0 0 1px rgba(191,0,255,0.5), 0 0 40px rgba(191,0,255,0.2), 0 20px 60px rgba(0,0,0,0.7)',
+      },
+      animation: {
+        'pulse-neon': 'pulseNeon 2.5s ease-in-out infinite alternate',
+        'float':      'float 7s ease-in-out infinite',
+        'scan':       'scan 4s linear infinite',
+        'orbit':      'orbit 20s linear infinite',
+        'orbit-rev':  'orbit 28s linear infinite reverse',
+      },
+      keyframes: {
+        pulseNeon: {
+          '0%':   { textShadow: '0 0 10px #bf00ff, 0 0 20px #bf00ff, 0 0 40px #bf00ff' },
+          '100%': { textShadow: '0 0 20px #bf00ff, 0 0 50px #bf00ff, 0 0 80px #bf00ff, 0 0 100px #7c00e0' },
+        },
+        float: {
+          '0%, 100%': { transform: 'translateY(0px)' },
+          '50%':      { transform: 'translateY(-18px)' },
+        },
+        scan: {
+          '0%':   { top: '0%', opacity: '0' },
+          '10%':  { opacity: '1' },
+          '90%':  { opacity: '1' },
+          '100%': { top: '100%', opacity: '0' },
+        },
+        orbit: {
+          from: { transform: 'translate(-50%, -50%) rotate(0deg)' },
+          to:   { transform: 'translate(-50%, -50%) rotate(360deg)' },
+        },
+      },
+    },
+  },
+  plugins: [],
+};

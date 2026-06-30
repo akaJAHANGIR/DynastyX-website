@@ -1,0 +1,182 @@
+import { useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
+import { Shield, Crosshair, Swords, Star } from 'lucide-react';
+
+type Player = {
+  name:    string;
+  role:    string;
+  tag:     string;
+  quote:   string;
+  traits:  string[];
+  badge:   string;
+  icon:    React.FC<{ className?: string }>;
+  image:   string;
+};
+
+const PLAYERS: Player[] = [
+  {
+    name:   'DXxROXX',
+    role:   'In-Game Leader',
+    tag:    'IGL',
+    quote:  'A leader on the battlefield. A legend in the making.',
+    traits: ['Strategy', 'Communication', 'Victory'],
+    badge:  'IGL',
+    icon:   Shield,
+    image:  'https://images.pexels.com/photos/3165335/pexels-photo-3165335.jpeg?auto=compress&cs=tinysrgb&w=600',
+  },
+  {
+    name:   'DXxGoldy',
+    role:   'Assaulter',
+    tag:    'ASSAULT',
+    quote:  'A force on the frontline. A threat everywhere.',
+    traits: ['Aggressive', 'Precise', 'Relentless'],
+    badge:  'ASSAULT',
+    icon:   Swords,
+    image:  'https://images.pexels.com/photos/2107525/pexels-photo-2107525.jpeg?auto=compress&cs=tinysrgb&w=600',
+  },
+  {
+    name:   'DXxHITU.16',
+    role:   'Assaulter',
+    tag:    'ASSAULT',
+    quote:  'Built for impact. Never backs down.',
+    traits: ['Aggressive', 'Precise', 'Built for Impact'],
+    badge:  'ASSAULT',
+    icon:   Crosshair,
+    image:  'https://images.pexels.com/photos/1670978/pexels-photo-1670978.jpeg?auto=compress&cs=tinysrgb&w=600',
+  },
+  {
+    name:   'DXxNavadeep',
+    role:   'Substitute Support',
+    tag:    'SUB',
+    quote:  'Ready to step in. Built to win.',
+    traits: ['Adaptive', 'Supportive', 'Ready'],
+    badge:  'SUBSTITUTE',
+    icon:   Star,
+    image:  'https://images.pexels.com/photos/3412525/pexels-photo-3412525.jpeg?auto=compress&cs=tinysrgb&w=600',
+  },
+];
+
+function PlayerCard({ player, index }: { player: Player; index: number }) {
+  const ref    = useRef(null);
+  const inView = useInView(ref, { once: true, margin: '-60px' });
+  const Icon   = player.icon;
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 60 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.65, delay: index * 0.1 }}
+      className="group relative rounded-2xl overflow-hidden bg-dark-800 border border-brand-700/20 card-hover cursor-default"
+    >
+      {/* Player photo */}
+      <div className="relative aspect-[3/4] overflow-hidden">
+        <img
+          src={player.image}
+          alt={player.name}
+          className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-110"
+        />
+
+        {/* Deep gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-dark-900 via-dark-900/60 to-transparent" />
+
+        {/* Purple sheen on hover */}
+        <div className="absolute inset-0 bg-brand-600/15 opacity-0 group-hover:opacity-100 transition-opacity duration-400" />
+
+        {/* Role badge — top right */}
+        <div className="absolute top-3 right-3 z-10">
+          <span className="font-orbitron font-black text-[10px] text-brand-200 tracking-widest px-2.5 py-1 rounded glass border border-brand-500/40">
+            {player.badge}
+          </span>
+        </div>
+
+        {/* Traits — top left, fade in */}
+        <div className="absolute top-3 left-3 z-10 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-400">
+          {player.traits.map((t) => (
+            <div key={t} className="font-rajdhani text-[11px] text-brand-300 font-semibold uppercase leading-5">
+              {t}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Card body */}
+      <div className="p-5">
+        {/* Icon + role */}
+        <div className="flex items-center gap-2 mb-2">
+          <Icon className="w-4 h-4 text-brand-400" />
+          <span className="font-rajdhani text-brand-400 text-xs font-semibold uppercase tracking-widest">
+            {player.role}
+          </span>
+        </div>
+
+        {/* Name */}
+        <h3 className="font-orbitron font-black text-2xl text-white mb-3 leading-tight">
+          {player.name}
+        </h3>
+
+        {/* Divider */}
+        <div className="h-px bg-gradient-to-r from-brand-600/40 via-brand-400/30 to-transparent mb-3" />
+
+        {/* Quote — slides up on hover */}
+        <p className="font-rajdhani text-sm text-brand-300/70 italic opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-400">
+          "{player.quote}"
+        </p>
+      </div>
+
+      {/* Bottom glow bar */}
+      <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-brand-500/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400" />
+    </motion.div>
+  );
+}
+
+export default function Roster() {
+  return (
+    <section id="roster" className="relative py-24 md:py-36 bg-dark-950">
+      <div className="absolute inset-0 bg-grid opacity-30" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_100%,rgba(124,0,224,0.12),transparent)]" />
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        {/* Heading */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
+          <p className="section-bar font-orbitron text-xs text-brand-400 uppercase tracking-[0.3em] mb-4">
+            The Squad
+          </p>
+          <h2 className="font-orbitron font-black text-4xl md:text-5xl lg:text-6xl text-white mb-4">
+            BGMI <span className="neon-text">Roster</span>
+          </h2>
+          <p className="font-rajdhani text-gray-400 text-lg max-w-xl mx-auto">
+            Four warriors. One dynasty. Unstoppable together.
+          </p>
+        </motion.div>
+
+        {/* Player cards grid */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {PLAYERS.map((player, i) => (
+            <PlayerCard key={player.name} player={player} index={i} />
+          ))}
+        </div>
+
+        {/* Team motto strip */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="mt-16 text-center"
+        >
+          <p className="font-orbitron font-bold text-sm md:text-base uppercase tracking-[0.4em] text-brand-500/60">
+            FOCUS &nbsp;•&nbsp; COMMIT &nbsp;•&nbsp; DOMINATE
+          </p>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
